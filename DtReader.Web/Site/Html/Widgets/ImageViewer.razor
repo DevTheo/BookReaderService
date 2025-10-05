@@ -1,0 +1,13 @@
+﻿@using System.Text.Json
+<div style="display:none">
+    <input type="hidden" class="spotlightImageViewer" id=@($"image-data-{Name}") value=@ImagesSrc />
+</div>
+
+@code {
+    [Parameter] public string FileName { get; set; } = "WHIZ Comics 001.cbz";
+    [Parameter] public int PageCount { get; set; } = 68;
+    internal string Name => Path.GetFileNameWithoutExtension(FileName);
+    internal string ImagesSrc => JsonSerializer.Serialize(
+        Enumerable.Range(0, PageCount)
+        .Select(pg => new {src= $@"/api/image-viewer?name={FileName}&page={pg}"}));
+}

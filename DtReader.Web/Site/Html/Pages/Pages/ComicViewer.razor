@@ -1,29 +1,15 @@
 ﻿@page "/ComicViewer"
 @using System.Text.Json
+@using DtReader.Web.Site.Html.Widgets
 @rendermode InteractiveServer
 
 <PageTitle>@ComicName</PageTitle>
-@* <HeadContent> *@
-@* *@
-@* </HeadContent> *@
 
-@* <div class="spotlight-group"> *@
-@*     @for (var i = 0; i < PageCount; i++) *@
-@*     { *@
-@*         <a class="spotlight" href=@($"/api/comic-viewer?name={FileName}&page={i}")> *@
-@*             <img src=@($"/api/comic-viewer?name={FileName}&page={i}") /> *@
-@*         </a> *@
-@*     } *@
-@* </div> *@
-
-<div style="display:none">
-    <input type="hidden" class="spotlightImageViewer" id=@($"cbz-data-{ComicName.Split(".")[0]}") value=@ImagesSrc />
-</div>
+<ImageViewer FileName=@FileName PageCount=@PageCount />
 
 @code
 {
-    [Parameter] public string ComicName { get; set; } = "WHIZ Comics 001";
     [Parameter] public string FileName { get; set; } = "WHIZ Comics 001.cbz";
     [Parameter] public int PageCount { get; set; } = 68;
-    internal string ImagesSrc => JsonSerializer.Serialize(Enumerable.Range(0, PageCount).Select(pg => new {src= $@"/api/comic-viewer?name={FileName}&page={pg}"}));
+    internal string ComicName => Path.GetFileNameWithoutExtension(FileName);
 }

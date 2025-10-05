@@ -7,7 +7,7 @@ namespace DtReader.Web.Site.ServiceRoutes.Handlers;
 
 public static class BookReaderHandler
 {
-    public static async Task ViewComicPage(
+    public static async Task ViewPageImage(
         [FromQuery]string name,
         [FromQuery]string page,
         [FromServices]IComicFileService comicService,
@@ -15,10 +15,23 @@ public static class BookReaderHandler
     {
         var pageNum = 0;
         int.TryParse(page, out pageNum);
-        
-        // Call Comic Api to get page and return it
-        var comicPage = await comicService.GetPage(name, pageNum);
 
+        ImagePage comicPage;
+        var extension = Path.GetExtension(name);
+        if (extension.StartsWith(".cb", StringComparison.InvariantCultureIgnoreCase))
+        {
+            // Call Comic Api to get page and return it
+            comicPage = await comicService.GetPage(name, pageNum);
+        }
+        else if (extension.Equals(".djvu", StringComparison.InvariantCultureIgnoreCase))
+        {
+            
+        }
+        else 
+        {
+            throw new ApplicationException("Invalid image type");
+        }
+ 
         using var ms = new MemoryStream(comicPage.Data);
         httpContextAccessor!.HttpContext!.Response.ContentType = comicPage.MimeType;
         httpContextAccessor.HttpContext!.Response.ContentLength = comicPage.Data.Length;

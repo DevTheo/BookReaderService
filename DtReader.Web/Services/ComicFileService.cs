@@ -3,18 +3,30 @@ using SharpSevenZip;
 
 namespace DtReader.Web.Services;
 
-public interface IComicFileService
+public interface IImageFileService
 {
-    Task<ComicPage> GetPage(string fileName, int pageNumber);
+    int GetPageCount(string fileName);
+    Task<ImagePage> GetPage(string fileName, int pageNumber);
 }
 
-public record ComicPage(string MimeType, byte[] Data);
+public interface IComicFileService : IImageFileService;
+
+public record ImagePage(string MimeType, byte[] Data);
 
 public class ComicFileService : IComicFileService
 {
-    public async Task<ComicPage> GetPage(string fileName, int pageNumber)
+    public int GetPageCount(string fileName)
     {
-        var extractor =
+        using var extractor =
+            new SharpSevenZipExtractor(
+                $".{Path.DirectorySeparatorChar}Ebooks{Path.DirectorySeparatorChar}{fileName}");
+        
+        return (int)extractor.FilesCount;
+    }
+    
+    public async Task<ImagePage> GetPage(string fileName, int pageNumber)
+    {
+        using var extractor =
             new SharpSevenZipExtractor(
                 $".{Path.DirectorySeparatorChar}Ebooks{Path.DirectorySeparatorChar}{fileName}");
         var imageFiles = extractor.ArchiveFileNames.ToArray();
@@ -26,6 +38,6 @@ public class ComicFileService : IComicFileService
         await extractor.ExtractFileAsync(index, ms);
         await ms.FlushAsync();
         var buffer = ms.ToArray();
-        return new ComicPage(mimeType, buffer);
+        return new ImagePage(mimeType, buffer);
     }
 }
