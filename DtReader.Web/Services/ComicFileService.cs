@@ -16,7 +16,7 @@ public class ComicFileService : IComicFileService
     {
         var extractor =
             new SharpSevenZipExtractor(
-                $"..{Path.DirectorySeparatorChar}Ebooks{Path.DirectorySeparatorChar}{fileName}");
+                $".{Path.DirectorySeparatorChar}Ebooks{Path.DirectorySeparatorChar}{fileName}");
         var imageFiles = extractor.ArchiveFileNames.ToArray();
         var index = imageFiles.Length <= pageNumber ? 0 : pageNumber;
         var imageFile = imageFiles[index];

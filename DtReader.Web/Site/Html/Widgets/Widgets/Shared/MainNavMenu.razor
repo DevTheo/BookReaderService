@@ -33,7 +33,8 @@
         var uri = NavMgr.Uri;
         Pages = (new [] {
             ("Home", "/", true),
-            ("Simple Htmx", "/simple", false)
+            ("Simple Htmx", "/simple", false),
+            ("Cbz Viewer", "/ComicViewer", false)
         }).Select(p =>
         {
             var isCurrent = uri.EndsWith(p.Item2); 

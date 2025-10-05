@@ -13,7 +13,10 @@ void Setup7ZipLib()
 
 void SetupServices(IServiceCollection services)
 {
-    services.AddSingleton<IComicFileService, ComicFileService>();
+    services
+        .AddSingleton<IComicFileService, ComicFileService>()
+        .AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        ;
 }
 
 
@@ -38,7 +41,6 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseAntiforgery();
 app.AddServiceRoutes();
