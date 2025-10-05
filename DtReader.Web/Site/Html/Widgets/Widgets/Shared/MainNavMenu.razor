@@ -1,0 +1,58 @@
+﻿@inject NavigationManager NavMgr
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="/">Super Simple Menu</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                @foreach (var pg in Pages)
+                {
+                <li class="@pg.css">
+                    <a class="nav-link" href="@pg.relUrl">@pg.pageName @if(pg.isCurrent){<span class="sr-only">(current)</span>}</a>
+                </li>
+                }
+            </ul>
+        </div>
+    </nav>
+@code {
+
+    private (
+        string pageName, 
+        string relUrl, 
+        bool isDefault, 
+        bool isCurrent,
+        string css)[] Pages {
+        get;
+        set;
+    } = null!;
+
+    protected override void OnInitialized()
+    {
+        var uri = NavMgr.Uri;
+        Pages = (new [] {
+            ("Home", "/", true),
+            ("Simple Htmx", "/simple", false)
+        }).Select(p =>
+        {
+            var isCurrent = uri.EndsWith(p.Item2); 
+            return (
+                pageName: p.Item1,
+                relUrl: p.Item2,
+                isDefault: p.Item3,
+                isCurrent,
+                css: isCurrent ? "nav-item active": "nav-item"
+            );
+        }).ToArray();
+
+        var noneSelected = !Pages.Any(i => i.isCurrent);
+        if (noneSelected)
+        {
+            // ReSharper disable once NotAccessedVariable
+            var defaultPage = Pages.First(i => i.isDefault);
+            defaultPage.isCurrent = true;
+            defaultPage.css = "nav-item active";
+        }
+    }
+}

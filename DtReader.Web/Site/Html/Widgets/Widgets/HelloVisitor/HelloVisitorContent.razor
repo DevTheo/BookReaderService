@@ -1,0 +1,15 @@
+﻿
+<label>
+    What is your Name? <input name="visitorName" value=@(VisitorName) />
+</label>
+<button class="btn btn-primary" type="button" hx-get="/api/set-name" hx-target="#homeContent" hx-include="input[name=visitorName]" hx-swap="innerHTML">Hello</button>
+
+<div id="homeContent">
+    <HelloVisitorChildContent VisitorName=@(VisitorName) />
+</div>
+
+@code {
+
+    [Parameter] public string VisitorName { get; set; } = string.Empty;
+
+}

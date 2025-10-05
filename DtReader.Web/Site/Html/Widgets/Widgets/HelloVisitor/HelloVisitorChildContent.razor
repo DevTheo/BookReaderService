@@ -1,0 +1,11 @@
+﻿@if (!string.IsNullOrEmpty(VisitorName))
+{
+<h1>Hello, @(VisitorName)!</h1>
+<div>Welcome to Blazor + htmx!</div>
+}
+
+@code {
+
+[Parameter] public string VisitorName { get; set; } = string.Empty;
+
+}
