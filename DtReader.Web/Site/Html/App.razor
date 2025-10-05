@@ -5,38 +5,22 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <base href="/"/>
-    <link rel="stylesheet" href="/wwwroot/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/wwwroot/app.css"/>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/app.css"/>
     <link rel="stylesheet" href="DtReader.Web.styles.css"/>
-    <link rel="icon" type="image/png" href="/wwwroot/favicon.png"/>
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <link rel="stylesheet" href="/scripts/spotlight.min.css"/>
 
-    <script src="/wwwroot/scripts/htmx.js"></script>
+    <script src="/scripts/htmx.js"></script>
     <script defer src="_framework/blazor.web.js"></script>
     <!-- the js below is needed to properly load htmx tags after a blazor navigation --->
-    <script defer src="/wwwroot/scripts/htmx-blazor.js"></script>
-    <link rel="stylesheet" href="/wwwroot/scripts/spotlight.min.css">
-    <script src="/wwwroot/scripts/spotlight.min.js"></script>
-    <script>
-        (window ?? {}).imageViewer = {
-            startViewer: function(gallery) {
-                Spotlight.show(gallery, { autoslide: true, title:false, description:false});
-            }
-        };
-        htmx.onLoad(function(target) {
-            console.log("onLoad");
-            const imageData = target.getElementsByClassName("spotlightImageViewer");
-            if(imageData.length === 1) {
-                const gallery = JSON.parse(imageData[0].value);
-                console.log("viewer launch!");
-                window.imageViewer.startViewer(gallery);
-            }
-        });
-    </script>
+    <script defer src="/scripts/htmx-blazor.js"></script>
+    @* <script href="/scripts/spotlight.bundle.js"></script> *@
     <HeadOutlet/>
 </head>
 
 <body>
 <Routes/>
 </body>
-
+<script src="/scripts/app.js"></script>
 </html>
