@@ -10,10 +10,28 @@
     <link rel="stylesheet" href="DtReader.Web.styles.css"/>
     <link rel="icon" type="image/png" href="/wwwroot/favicon.png"/>
 
-    <script defer src="/wwwroot/scripts/htmx.js"></script>
+    <script src="/wwwroot/scripts/htmx.js"></script>
     <script defer src="_framework/blazor.web.js"></script>
     <!-- the js below is needed to properly load htmx tags after a blazor navigation --->
     <script defer src="/wwwroot/scripts/htmx-blazor.js"></script>
+    <link rel="stylesheet" href="/wwwroot/scripts/spotlight.min.css">
+    <script src="/wwwroot/scripts/spotlight.min.js"></script>
+    <script>
+        (window ?? {}).imageViewer = {
+            startViewer: function(gallery) {
+                Spotlight.show(gallery, { autoslide: true, title:false, description:false});
+            }
+        };
+        htmx.onLoad(function(target) {
+            console.log("onLoad");
+            const imageData = target.getElementsByClassName("spotlightImageViewer");
+            if(imageData.length === 1) {
+                const gallery = JSON.parse(imageData[0].value);
+                console.log("viewer launch!");
+                window.imageViewer.startViewer(gallery);
+            }
+        });
+    </script>
     <HeadOutlet/>
 </head>
 
