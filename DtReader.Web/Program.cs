@@ -1,7 +1,23 @@
 
+using System.Reflection;
+using DtReader.Web.Services;
 using DtReader.Web.Site.Html;
 using DtReader.Web.Site.ServiceRoutes;
 
+void Setup7ZipLib()
+{
+    var fullPathToDll = Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(Path.DirectorySeparatorChar)).TrimEnd(Path.DirectorySeparatorChar);
+
+    SharpSevenZip.SharpSevenZipBase.SetLibraryPath($@"{fullPathToDll}{Path.DirectorySeparatorChar}7z.dll");
+}
+
+void SetupServices(IServiceCollection services)
+{
+    services.AddSingleton<IComicFileService, ComicFileService>();
+}
+
+
+Setup7ZipLib();
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,7 +25,7 @@ builder.Services
     .AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// TODO: add Services
+SetupServices(builder.Services);
 
 var app = builder.Build();
 

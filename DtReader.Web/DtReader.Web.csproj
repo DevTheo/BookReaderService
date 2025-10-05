@@ -28,4 +28,16 @@
     <_ContentIncludedByDefault Remove="wwwroot\wwwroot\scripts\spotlight.bundle.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MimeTypeMapOfficial" Version="1.0.17" />
+    <PackageReference Include="SharpSevenZip" Version="2.0.32" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\nativelibs\7z.dll">
+      <Link>7z.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
