@@ -1,0 +1,42 @@
+﻿@using DtReader.Web.Site.Html.Data
+@inject NavigationManager NavMgr
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="/">Super Simple Menu</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                @foreach (var pg in Pages)
+                {
+                <li class="@pg.Css">
+                    <a class="nav-link" href="@pg.RelUrl">@pg.PageName @if(pg.IsCurrent){<span class="sr-only">(current)</span>}</a>
+                </li>
+                }
+            </ul>
+        </div>
+    </nav>
+@code {
+
+    private NavigationPage[] Pages {
+        get;
+        set;
+    } = NavigationData.Pages;
+
+    protected override void OnInitialized()
+    {
+        var uri = NavMgr.Uri;
+        foreach (var pg in Pages)
+        {
+            pg.IsCurrent = uri.EndsWith(pg.RelUrl);
+        }
+
+        if (!Pages.Any(i => i.IsCurrent))
+        {
+            // ReSharper disable once NotAccessedVariable
+            var defaultPage = Pages.First(i => i.IsDefault);
+            defaultPage.IsCurrent = true;
+        }
+    }
+}

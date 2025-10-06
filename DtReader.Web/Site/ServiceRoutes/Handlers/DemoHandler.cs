@@ -1,4 +1,4 @@
-using DtReader.Web.Site.Html.Widgets.Widgets.HelloVisitor;
+using DtReader.Web.Site.Html.Widgets.HelloVisitor;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace DtReader.Web.Site.ServiceRoutes.Handlers;

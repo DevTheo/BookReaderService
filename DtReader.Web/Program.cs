@@ -15,6 +15,7 @@ void SetupServices(IServiceCollection services)
 {
     services
         .AddSingleton<IComicFileService, ComicFileService>()
+        .AddSingleton<IDjvuFileService, DjvuFileService>()
         .AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         ;
 }

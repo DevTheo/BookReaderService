@@ -12,6 +12,9 @@
     <AdditionalFiles Include="Site\Html\Pages\Pages\Error.razor" />
     <AdditionalFiles Include="Site\Html\Pages\Pages\Home.razor" />
     <AdditionalFiles Include="Site\Html\Pages\Pages\SimplePage.razor" />
+    <AdditionalFiles Include="Site\Html\Widgets\HelloVisitor\HelloVisitorChildContent.razor" />
+    <AdditionalFiles Include="Site\Html\Widgets\HelloVisitor\HelloVisitorContent.razor" />
+    <AdditionalFiles Include="Site\Html\Widgets\Shared\MainNavMenu.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,8 +32,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Djvu" Version="1.0.0" />
     <PackageReference Include="MimeTypeMapOfficial" Version="1.0.17" />
     <PackageReference Include="SharpSevenZip" Version="2.0.32" />
+    <PackageReference Include="SkiaSharp" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp.Views" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="3.119.1" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,12 @@
+﻿@page "/DjvuViewer"
+
+<PageTitle>@DocName</PageTitle>
+
+<ImageViewer FileName=@FileName PageCount=@PageCount />
+
+@code
+{
+    [Parameter] public string FileName { get; set; } = "dr_dobbs_journal_vol_01.djvu";
+    [Parameter] public int PageCount { get; set; } = 267;
+    internal string DocName => Path.GetFileNameWithoutExtension(FileName);
+}

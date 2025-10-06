@@ -11,30 +11,29 @@ public static class BookReaderHandler
         [FromQuery]string name,
         [FromQuery]string page,
         [FromServices]IComicFileService comicService,
+        [FromServices]IDjvuFileService djvuService,
         [FromServices]IHttpContextAccessor httpContextAccessor)
     {
         var pageNum = 0;
         int.TryParse(page, out pageNum);
 
-        ImagePage comicPage;
         var extension = Path.GetExtension(name);
-        if (extension.StartsWith(".cb", StringComparison.InvariantCultureIgnoreCase))
+        IImageFileService? svc = extension switch
         {
-            // Call Comic Api to get page and return it
-            comicPage = await comicService.GetPage(name, pageNum);
-        }
-        else if (extension.Equals(".djvu", StringComparison.InvariantCultureIgnoreCase))
+            _ when extension.StartsWith(".cb") => comicService,
+            _ when extension.Equals(".djvu") => djvuService,
+            _ => null
+        };
+
+        if (svc != null)
         {
-            
+            var docPageAsImage = await svc.GetPage(name, pageNum);
+            using var ms = new MemoryStream(docPageAsImage.Data);
+            httpContextAccessor!.HttpContext!.Response.ContentType = docPageAsImage.MimeType;
+            httpContextAccessor.HttpContext!.Response.ContentLength = docPageAsImage.Data.Length;
+            await ms.CopyToAsync(httpContextAccessor.HttpContext!.Response.Body);
         }
-        else 
-        {
-            throw new ApplicationException("Invalid image type");
-        }
- 
-        using var ms = new MemoryStream(comicPage.Data);
-        httpContextAccessor!.HttpContext!.Response.ContentType = comicPage.MimeType;
-        httpContextAccessor.HttpContext!.Response.ContentLength = comicPage.Data.Length;
-        await ms.CopyToAsync(httpContextAccessor.HttpContext!.Response.Body);
+        
+        throw new ApplicationException("Invalid image type");
     }
 }
