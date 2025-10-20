@@ -10,6 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DtReader.Core", "DtReader.Core\DtReader.Core.csproj", "{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DtReader.Data.Sqlite", "DtReader.Data.Sqlite\DtReader.Data.Sqlite.csproj", "{B905240D-4E4A-4B30-AF88-1122043BB277}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DtReader.Data.Sqlite.DbUp", "DtReader.Data.Sqlite.DbUp\DtReader.Data.Sqlite.DbUp.csproj", "{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +38,46 @@ Global
 		{E76C4D3D-FBAE-47F4-A5C2-5EF8D6A1AFC9}.Release|x64.Build.0 = Release|Any CPU
 		{E76C4D3D-FBAE-47F4-A5C2-5EF8D6A1AFC9}.Release|x86.ActiveCfg = Release|Any CPU
 		{E76C4D3D-FBAE-47F4-A5C2-5EF8D6A1AFC9}.Release|x86.Build.0 = Release|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Debug|x64.Build.0 = Debug|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Debug|x86.Build.0 = Debug|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Release|x64.ActiveCfg = Release|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Release|x64.Build.0 = Release|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Release|x86.ActiveCfg = Release|Any CPU
+		{DBCE6ED4-FF82-400A-904F-52E8A41A8F1F}.Release|x86.Build.0 = Release|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Debug|x64.Build.0 = Debug|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Debug|x86.Build.0 = Debug|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Release|x64.ActiveCfg = Release|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Release|x64.Build.0 = Release|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Release|x86.ActiveCfg = Release|Any CPU
+		{B905240D-4E4A-4B30-AF88-1122043BB277}.Release|x86.Build.0 = Release|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Debug|x64.Build.0 = Debug|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Debug|x86.Build.0 = Debug|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Release|x64.ActiveCfg = Release|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Release|x64.Build.0 = Release|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Release|x86.ActiveCfg = Release|Any CPU
+		{7F509286-AE13-4D0F-BB95-87AB52E0FEFF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal
