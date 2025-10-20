@@ -10,4 +10,5 @@ public class DtReaderConfig
 {
     public string ConnectionString { get; set; } = string.Empty;
     public DbDataSourceType DataSourceType { get; set; } = DbDataSourceType.Sqlite;
+    public string SqliteDbPath = @".\App_data\DtReader.db";
 }

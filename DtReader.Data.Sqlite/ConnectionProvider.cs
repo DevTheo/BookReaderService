@@ -11,10 +11,16 @@ public interface ISqliteConnectionProvider
     SqliteConnection Connection { get; }
 }
 
-public class SqliteConnectionProvider(IOptions<DtReaderConfig> options)
+public class SqliteConnectionProvider
     : ISqliteConnectionProvider, IDisposable, IAsyncDisposable
 {
-    public SqliteConnection Connection { get; } = new(options.Value.ConnectionString);
+    public SqliteConnectionProvider(IOptions<DtReaderConfig> options)
+    {
+        SQLitePCL.Batteries.Init();
+        Connection = new(options.Value.ConnectionString);
+    }
+
+    public SqliteConnection Connection { get; }
 
     public void Dispose()
     {

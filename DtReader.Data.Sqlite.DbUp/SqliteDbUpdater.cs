@@ -14,9 +14,19 @@ public class SqliteDbUpdater(
 {
     public bool UpdateDb()
     {
+        //2025-10-19 20:21:15 -04:00 [ERR] Upgrade failed due to an
+        //unexpected exception: System.Exception:
+        //You need to call SQLitePCL.raw.SetProvider().
+        //If you are using a bundle package, this is done by calling
+        //SQLitePCL.Batteries.Init().
+
+        var connectionString = $"Data Source={options.Value.SqliteDbPath}";
+        //EnsureDatabase.For.SqliteDatabase(connectionString);
+        SQLitePCL.Batteries.Init();
         var upgrader =
             DeployChanges.To
-                .SqliteDatabase(options.Value.ConnectionString)
+                .SqliteDatabase(connectionString)
+                .LogToConsole()
                 .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly())
                 .LogToConsole()
                 .Build();

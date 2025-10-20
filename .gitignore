@@ -2,3 +2,4 @@
 **/obj
 **/bin
 DtReader.sln.DotSettings.user
+/DtReader.Web/App_Data/*.db

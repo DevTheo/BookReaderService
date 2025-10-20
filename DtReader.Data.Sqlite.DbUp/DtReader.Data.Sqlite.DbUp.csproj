@@ -10,9 +10,13 @@
         <PackageReference Include="dbup" Version="5.0.41" />
         <PackageReference Include="dbup-sqlite" Version="6.0.1" />
         <EmbeddedResource Include="Sql\**\*.sql" />
+        <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.10" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.10" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
         <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.10" />
+        <PackageReference Include="SQLite" Version="3.13.0" />
+        <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
+        <PackageReference Include="SQLitePCLRaw.core" Version="3.0.2" />
     </ItemGroup>
     
     <ItemGroup>
