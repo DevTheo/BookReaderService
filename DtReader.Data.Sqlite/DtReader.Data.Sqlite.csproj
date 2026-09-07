@@ -22,5 +22,8 @@
     <ItemGroup>
       <EmbeddedResource Include="Sql\**\*.sql" />
     </ItemGroup>
+    <ItemGroup>
+      <InternalsVisibleTo Include="DtReader.Tests" />
+    </ItemGroup>
 
 </Project>

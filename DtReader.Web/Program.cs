@@ -29,7 +29,6 @@ void SetupServices(IServiceCollection services, DtReaderConfig options)
     {
         services
             .AddScoped<ISqliteConnectionProvider, SqliteConnectionProvider>()
-            .AddScoped<ISqliteConnectionProvider, SqliteConnectionProvider>()
             .AddSingleton<IDbUpdater, SqliteDbUpdater>()
             ;
     }
@@ -46,9 +45,17 @@ builder.Services
 
 var options = new DtReaderConfig();
 builder.Configuration.Bind(nameof(DtReaderConfig), options);
-builder.Services.Configure<DtReaderConfig>(
-    builder.Configuration.GetSection(
-        key: nameof(DtReaderConfig)));
+builder.Services.AddOptions<DtReaderConfig>()
+    .Bind(builder.Configuration.GetSection(nameof(DtReaderConfig)))
+    .PostConfigure(o =>
+    {
+        if (!Path.IsPathRooted(o.SqliteDbPath))
+        {
+            o.SqliteDbPath = Path.GetFullPath(
+                Path.Combine(builder.Environment.ContentRootPath, o.SqliteDbPath));
+        }
+        Directory.CreateDirectory(Path.GetDirectoryName(o.SqliteDbPath)!);
+    });
 
 SetupServices(builder.Services, options);
 

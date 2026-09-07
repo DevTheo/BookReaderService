@@ -20,9 +20,12 @@ public class DjvuFileService : IDjvuFileService
     {
         var fullPath = $".{Path.DirectorySeparatorChar}Ebooks{Path.DirectorySeparatorChar}{fileName}";
         var doc = new DjvuNet.DjvuDocument(fullPath);
-        var index = doc.Pages.Length < pageNumber ? doc.Pages.Length - 1 : pageNumber;
+        if (doc.Pages.Length == 0)
+        {
+            throw new InvalidOperationException($"Document '{fileName}' contains no pages.");
+        }
+        var index = Math.Clamp(pageNumber, 0, doc.Pages.Length - 1);
         var page = doc.Pages[index];
-        //page.        
         var skBitmap = page.BuildPageImage().ToSKBitmap();
 
         using var ms = new MemoryStream();

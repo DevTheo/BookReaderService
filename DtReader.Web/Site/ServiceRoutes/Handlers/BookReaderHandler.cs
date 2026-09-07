@@ -14,14 +14,20 @@ public static class BookReaderHandler
         [FromServices]IDjvuFileService djvuService,
         [FromServices]IHttpContextAccessor httpContextAccessor)
     {
+        if (string.IsNullOrWhiteSpace(name) ||
+            name.Contains('/') || name.Contains('\\') || name.Contains(".."))
+        {
+            throw new ArgumentException("Invalid file name", nameof(name));
+        }
+
         var pageNum = 0;
         int.TryParse(page, out pageNum);
 
-        var extension = Path.GetExtension(name);
+        var extension = Path.GetExtension(name).ToLowerInvariant();
         IImageFileService? svc = extension switch
         {
             _ when extension.StartsWith(".cb") => comicService,
-            _ when extension.Equals(".djvu") => djvuService,
+            _ when extension is ".djvu" or ".djv" => djvuService,
             _ => null
         };
 
@@ -32,6 +38,7 @@ public static class BookReaderHandler
             httpContextAccessor!.HttpContext!.Response.ContentType = docPageAsImage.MimeType;
             httpContextAccessor.HttpContext!.Response.ContentLength = docPageAsImage.Data.Length;
             await ms.CopyToAsync(httpContextAccessor.HttpContext!.Response.Body);
+            return;
         }
         
         throw new ApplicationException("Invalid image type");

@@ -20,7 +20,7 @@ public class SqliteDbUpdater(
         //If you are using a bundle package, this is done by calling
         //SQLitePCL.Batteries.Init().
 
-        var connectionString = $"Data Source={options.Value.SqliteDbPath}";
+        var connectionString = options.Value.ConnectionString;
         //EnsureDatabase.For.SqliteDatabase(connectionString);
         SQLitePCL.Batteries.Init();
         var upgrader =

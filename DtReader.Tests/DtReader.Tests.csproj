@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DtReader.Core\DtReader.Core.csproj" />
+    <ProjectReference Include="..\DtReader.Data.Sqlite\DtReader.Data.Sqlite.csproj" />
+    <ProjectReference Include="..\DtReader.Data.Sqlite.DbUp\DtReader.Data.Sqlite.DbUp.csproj" />
+    <None Include="..\sample-ebooks\Acromaid__corrected_size.djvu">
+      <Link>Acromaid.djvu</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <ProjectReference Include="..\DtReader.Web\DtReader.Web.csproj" />
+  </ItemGroup>
+
+  <!-- 7z.dll native lib required by SharpSevenZip (ComicFileService tests) -->
+  <ItemGroup>
+    <None Include="..\nativelibs\7z.dll">
+      <Link>7z.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

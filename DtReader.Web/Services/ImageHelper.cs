@@ -19,25 +19,23 @@ public static class ImageHelper
     public static ThumbnailResult GenerateThumbnail(byte[] jpegBuffer, int maxWidth, int maxHeight, SKEncodedImageFormat targetFormat = SKEncodedImageFormat.Webp)
     {
         // Load the source image from the input stream
-        using var loadedImage = SKImage.FromEncodedData(jpegBuffer); 
+        using var loadedImage = SKImage.FromEncodedData(jpegBuffer);
+        if (loadedImage == null)
+        {
+            return new ThumbnailResult(jpegBuffer, SKEncodedImageFormat.Jpeg);
+        }
         using var image = SKBitmap.FromImage(loadedImage);
         if (image == null)
         {
             return new ThumbnailResult(jpegBuffer, SKEncodedImageFormat.Jpeg);
         }
-        
-        var width = image.Width;
-        var height = image.Height;
-        if (width > maxWidth)
-        {
-            height = (int)Math.Floor((height * ((double)width / maxWidth)) + .5);
-            width = maxWidth;
-        }
-        if (height > maxHeight)
-        {
-            width = (int)Math.Floor((width * ((double)height / maxHeight)) + .5);
-            height = maxHeight;
-        }
+
+        // Fit within (maxWidth, maxHeight), preserving aspect ratio; never upscale.
+        var scale = Math.Min(
+            Math.Min((double)maxWidth / image.Width, (double)maxHeight / image.Height),
+            1.0);
+        var width = (int)Math.Floor(image.Width * scale + .5);
+        var height = (int)Math.Floor(image.Height * scale + .5);
 
         using var target = new SKBitmap(width, height, image.ColorType, image.AlphaType);
 
@@ -47,7 +45,7 @@ public static class ImageHelper
             target.Encode(ms, targetFormat, 100);
             return new ThumbnailResult(ms.GetBuffer(), targetFormat);
         }
-        
+
         return new ThumbnailResult(jpegBuffer, SKEncodedImageFormat.Jpeg);
     }
 }
